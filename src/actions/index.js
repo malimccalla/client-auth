@@ -25,6 +25,22 @@ export function signinUser({ email, password }) {
   }
 }
 
+export function signupUser({ email, password }) {
+  return function(dispatch) {
+    axios.post(`${API_URL}/signup`, { email, password })
+      .then((res) => {
+        console.log('success');
+        dispatch({ type: AUTH_USER });
+        localStorage.setItem('token', res.data.token)
+        browserHistory.push('/feature');
+      })
+      .catch((err) => {
+        dispatch(authError(err.data.error))
+      })
+  }
+}
+
+
 export function authError(error) {
   return {
     type: AUTH_ERROR,

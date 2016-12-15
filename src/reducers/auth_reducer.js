@@ -4,7 +4,10 @@ import {
   AUTH_ERROR
 } from '../actions/types';
 
-const INITITAL_STATE = {};
+const INITITAL_STATE = {
+  authenticated: null,
+  error: null
+};
 
 export default (state = INITITAL_STATE, action) => {
   switch (action.type) {
