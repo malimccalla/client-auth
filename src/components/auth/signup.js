@@ -12,15 +12,17 @@ class Signup extends Component {
         <fieldset className="form-group">
           <label>Email:</label>
           <input className="form-control" {...email} />
+          {email.touched && email.error && <div className="alert alert-danger">{email.error}</div>}
         </fieldset>
         <fieldset className="form-group">
           <label>Password:</label>
           <input className="form-control" type="password" {...password} />
+          {password.touched && password.error && <div className="alert alert-danger">{password.error}</div>}
         </fieldset>
         <fieldset className="form-group">
           <label>Confirm Password:</label>
           <input className="form-control" type="password" {...passwordConfirm} />
-          {password.touched && password.error && <div className="alert alert-danger">{password.error}</div>}
+          {passwordConfirm.touched && passwordConfirm.error && <div className="alert alert-danger">{passwordConfirm.error}</div>}
         </fieldset>
         <button action="submit" className="btn btn-primary">Sign up</button>
       </form>
@@ -30,6 +32,18 @@ class Signup extends Component {
 
 function validate({ email, password, passwordConfirm }) {
   const errors = {};
+
+  if (!email) {
+    errors.email = 'Please enter a email';
+  }
+
+  if (!password) {
+    errors.password = 'Please enter a password';
+  }
+
+  if (!passwordConfirm) {
+    errors.passwordConfirm = 'Please enter a password confirmation';
+  }
 
   if (password !== passwordConfirm) {
     errors.password = 'Password confirmation does not match'
