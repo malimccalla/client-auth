@@ -1,7 +1,8 @@
 import {
   AUTH_USER,
   DEAUTH_USER,
-  AUTH_ERROR
+  AUTH_ERROR,
+  FETCH_MESSAGE
 } from '../actions/types';
 
 const INITITAL_STATE = {
@@ -17,6 +18,8 @@ export default (state = INITITAL_STATE, action) => {
       return { ...state, authenticated: false }
     case AUTH_ERROR:
       return { ...state, error: action.payload }
+    case FETCH_MESSAGE:
+      return { ...state, message: action.payload }
     default:
       return state;
   }

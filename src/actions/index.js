@@ -4,7 +4,8 @@ import { browserHistory } from 'react-router';
 import {
   AUTH_USER,
   AUTH_ERROR,
-  DEAUTH_USER
+  DEAUTH_USER,
+  FETCH_MESSAGE
  } from './types';
 
 const API_URL = 'http://localhost:3000'
@@ -51,4 +52,20 @@ export function authError(error) {
 export function signoutUser() {
   localStorage.removeItem('token');
   return { type: DEAUTH_USER };
+}
+
+export function fetchMessage() {
+  return function(dispatch) {
+    axios.get(API_URL , {
+      headers: {
+        authorization: localStorage.getItem('token')
+      }
+    })
+    .then((res) => {
+      dispatch({
+        type: FETCH_MESSAGE,
+        payload: res.data.message
+      });
+    });
+  }
 }
